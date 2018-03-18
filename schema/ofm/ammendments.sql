@@ -1,19 +1,4 @@
 --
--- Table structure for table `AMMNT_ACTIVITYDATARECORDER`
---
-
-CREATE TABLE `AMMNT_ACTIVITYDATARECORDER` (
-  `PK` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
-  `record` longtext,
-  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `LoginTime` timestamp NULL DEFAULT NULL,
-  `LogoutTime` timestamp NULL DEFAULT NULL,
-  `ActivityDurationMin` int(11) DEFAULT '0',
-  PRIMARY KEY (`PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=4614 DEFAULT CHARSET=utf8;
-
---
 -- Table structure for table `AMMNT_COMMIT`
 --
 

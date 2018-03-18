@@ -7,8 +7,6 @@ CREATE TABLE `O1A1` (
   `OrganizationID` int(11) NOT NULL,
   `UserPropertiesTypeID` int(11) NOT NULL,
   `UserPropertiesTypeValue` float NOT NULL,
-  `Hidden` tinyint(1) NOT NULL,
-  `IonChangeTimestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`Pk`),
   KEY `index1` (`OrganizationID`,`UserPropertiesTypeID`),
   KEY `index2` (`Hidden`)
@@ -23,8 +21,6 @@ CREATE TABLE `O1A2` (
   `OrganizationID` int(11) NOT NULL,
   `UserPropertiesTypeID` int(11) NOT NULL,
   `UserPropertiesTypeValue` int(11) NOT NULL,
-  `Hidden` tinyint(1) NOT NULL,
-  `IonChangeTimestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`Pk`),
   KEY `index1` (`OrganizationID`,`UserPropertiesTypeID`),
   KEY `index2` (`Hidden`)
@@ -39,8 +35,6 @@ CREATE TABLE `O1A3` (
   `OrganizationID` int(11) NOT NULL,
   `UserPropertiesTypeID` int(11) NOT NULL,
   `UserPropertiesTypeValue` varchar(200) NOT NULL,
-  `Hidden` tinyint(1) NOT NULL,
-  `IonChangeTimestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`Pk`),
   KEY `index1` (`UserPropertiesTypeID`,`OrganizationID`),
   KEY `index` (`Hidden`)
@@ -55,8 +49,6 @@ CREATE TABLE `O1A4` (
   `OrganizationID` int(11) NOT NULL,
   `UserPropertiesTypeID` int(11) NOT NULL,
   `UserPropertiesTypeValue` varchar(50) NOT NULL,
-  `Hidden` tinyint(1) NOT NULL,
-  `IonChangeTimestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`Pk`),
   KEY `index1` (`OrganizationID`,`UserPropertiesTypeID`),
   KEY `index2` (`Hidden`)
@@ -71,8 +63,6 @@ CREATE TABLE `O1A5` (
   `OrganizationID` int(11) NOT NULL,
   `UserPropertiesTypeID` int(11) NOT NULL,
   `UserPropertiesTypeValue` datetime NOT NULL,
-  `Hidden` tinyint(1) NOT NULL,
-  `IonChangeTimestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`Pk`),
   KEY `index1` (`OrganizationID`,`UserPropertiesTypeID`),
   KEY `index2` (`Hidden`)
@@ -87,8 +77,6 @@ CREATE TABLE `O1A6` (
   `OrganizationID` int(11) NOT NULL,
   `UserPropertiesTypeID` int(11) NOT NULL,
   `UserPropertiesTypeValue` longblob NOT NULL,
-  `Hidden` tinyint(1) NOT NULL,
-  `IonChangeTimestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`PK`),
   KEY `index1` (`OrganizationID`,`UserPropertiesTypeID`),
   KEY `index2` (`Hidden`)
@@ -103,8 +91,6 @@ CREATE TABLE `O1A7` (
   `OrganizationID` int(11) NOT NULL,
   `UserPropertiesTypeID` int(11) NOT NULL,
   `UserPropertiesTypeValue` tinyint(1) NOT NULL,
-  `Hidden` tinyint(1) NOT NULL,
-  `IonChangeTimestamp` datetime DEFAULT NULL,
   PRIMARY KEY (`Pk`),
   KEY `index1` (`OrganizationID`,`UserPropertiesTypeID`),
   KEY `index2` (`Hidden`)

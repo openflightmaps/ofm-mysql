@@ -20,11 +20,8 @@ CREATE TABLE `S2A1` (
   `ServiceID` int(11) NOT NULL,
   `ServicePropertiesTypeID` int(11) NOT NULL,
   `ServicePropertiesTypeValue` double NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `deleted` tinyint(4) DEFAULT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
   PRIMARY KEY (`PK`),
-  KEY `index2` (`ServiceID`,`ServicePropertiesTypeID`,`ammnt_FirId`)
+  KEY `index2` (`ServiceID`,`ServicePropertiesTypeID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -36,11 +33,8 @@ CREATE TABLE `S2A2` (
   `ServiceID` int(11) NOT NULL,
   `ServicePropertiesTypeID` int(11) NOT NULL,
   `ServicePropertiesTypeValue` tinyint(1) NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `deleted` tinyint(4) DEFAULT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
   PRIMARY KEY (`PK`),
-  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`,`ammnt_FirId`)
+  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -52,11 +46,8 @@ CREATE TABLE `S2A3` (
   `ServiceID` int(11) NOT NULL,
   `ServicePropertiesTypeID` int(11) NOT NULL,
   `ServicePropertiesTypeValue` varchar(50) NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `deleted` tinyint(4) DEFAULT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
   PRIMARY KEY (`PK`),
-  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`,`ammnt_FirId`)
+  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -68,11 +59,8 @@ CREATE TABLE `S2A4` (
   `ServiceID` int(11) NOT NULL,
   `ServicePropertiesTypeID` int(11) NOT NULL,
   `ServicePropertiesTypeValue` double NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
-  `deleted` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`PK`),
-  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`,`ammnt_FirId`)
+  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -84,11 +72,8 @@ CREATE TABLE `S2A5` (
   `ServiceID` int(11) NOT NULL,
   `ServicePropertiesTypeID` int(11) NOT NULL,
   `ServicePropertiesTypeValue` double NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
-  `deleted` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`PK`),
-  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`,`ammnt_FirId`)
+  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -100,11 +85,8 @@ CREATE TABLE `S2A6` (
   `ServiceID` int(11) NOT NULL,
   `ServicePropertiesTypeID` int(11) NOT NULL,
   `ServicePropertiesTypeValue` tinyblob NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
-  `deleted` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`PK`),
-  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`,`ammnt_FirId`)
+  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -116,11 +98,8 @@ CREATE TABLE `S2A7` (
   `ServiceID` int(11) NOT NULL,
   `ServicePropertiesTypeID` int(11) NOT NULL,
   `ServicePropertiesTypeValue` double NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
-  `deleted` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`PK`),
-  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`,`ammnt_FirId`)
+  KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -144,16 +123,10 @@ CREATE TABLE `S3A1` (
   `ServiceEntityID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeValue` double NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `UserID` int(11) NOT NULL,
   `ParentServiceId` int(11) DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
-  `ammnt_FirId` int(11) DEFAULT NULL,
   PRIMARY KEY (`PK`),
   KEY `index1` (`ServiceEntityPropertiesTypeID`,`ServiceEntityID`,`ParentServiceId`),
-  KEY `index3` (`deleted`),
-  KEY `index4` (`ServiceEntityID`,`ParentServiceId`),
-  KEY `index5` (`ammnt_FirId`)
+  KEY `index4` (`ServiceEntityID`,`ParentServiceId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -165,16 +138,10 @@ CREATE TABLE `S3A2` (
   `ServiceEntityID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeValue` int(11) NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `UserID` int(11) NOT NULL,
   `ParentServiceId` int(11) DEFAULT NULL,
-  `deleted` int(11) DEFAULT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
   PRIMARY KEY (`PK`),
   KEY `index1` (`ServiceEntityPropertiesTypeID`,`ServiceEntityID`,`ParentServiceId`),
-  KEY `index3` (`deleted`),
-  KEY `index4` (`ServiceEntityID`,`ParentServiceId`),
-  KEY `index5` (`ammnt_FirId`)
+  KEY `index4` (`ServiceEntityID`,`ParentServiceId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=93914 DEFAULT CHARSET=utf8;
 
 --
@@ -186,16 +153,10 @@ CREATE TABLE `S3A3` (
   `ServiceEntityID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeValue` longtext NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `UserID` int(11) NOT NULL,
   `ParentServiceId` int(11) DEFAULT NULL,
-  `deleted` int(11) DEFAULT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
   PRIMARY KEY (`PK`),
   KEY `index1` (`ServiceEntityPropertiesTypeID`,`ServiceEntityID`,`ParentServiceId`),
-  KEY `Index3` (`deleted`),
-  KEY `index4` (`ParentServiceId`,`ServiceEntityID`),
-  KEY `index5` (`ammnt_FirId`)
+  KEY `index4` (`ParentServiceId`,`ServiceEntityID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=183363 DEFAULT CHARSET=utf8;
 
 --
@@ -207,16 +168,10 @@ CREATE TABLE `S3A4` (
   `ServiceEntityID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeValue` varchar(50) NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `UserID` int(11) NOT NULL,
   `ParentServiceId` int(11) DEFAULT NULL,
-  `deleted` int(11) DEFAULT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
   PRIMARY KEY (`PK`),
   KEY `index1` (`ServiceEntityPropertiesTypeID`,`ServiceEntityID`,`ParentServiceId`),
-  KEY `index3` (`deleted`),
-  KEY `index4` (`ServiceEntityID`,`ParentServiceId`),
-  KEY `index5` (`ammnt_FirId`)
+  KEY `index4` (`ServiceEntityID`,`ParentServiceId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9851 DEFAULT CHARSET=utf8;
 
 --
@@ -228,16 +183,10 @@ CREATE TABLE `S3A5` (
   `ServiceEntityID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeValue` datetime NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `UserID` int(11) NOT NULL,
   `ParentServiceId` int(11) DEFAULT NULL,
-  `deleted` int(11) DEFAULT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
   PRIMARY KEY (`PK`),
   KEY `index1` (`ServiceEntityPropertiesTypeID`,`ServiceEntityID`,`ParentServiceId`),
-  KEY `index3` (`deleted`),
-  KEY `index4` (`ServiceEntityID`,`ParentServiceId`),
-  KEY `index5` (`ammnt_FirId`)
+  KEY `index4` (`ServiceEntityID`,`ParentServiceId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=737 DEFAULT CHARSET=utf8;
 
 --
@@ -249,14 +198,8 @@ CREATE TABLE `S3A6` (
   `ServiceEntityID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeValue` longblob NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `UserId` int(11) NOT NULL,
   `ParentServiceId` int(11) DEFAULT NULL,
-  `deleted` int(11) DEFAULT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
   PRIMARY KEY (`PK`),
-  KEY `index3` (`deleted`),
-  KEY `index5` (`ammnt_FirId`),
   KEY `index1` (`ServiceEntityID`),
   KEY `index6` (`ParentServiceId`),
   KEY `index4` (`ServiceEntityID`)
@@ -271,15 +214,9 @@ CREATE TABLE `S3A7` (
   `ServiceEntityID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeID` int(11) NOT NULL,
   `ServiceEntityPropertiesTypeValue` tinyint(1) NOT NULL,
-  `IonChangeTimestamp` datetime NOT NULL,
-  `UserID` int(11) NOT NULL,
   `ParentServiceId` int(11) DEFAULT NULL,
-  `ammnt_FirId` int(11) DEFAULT NULL,
-  `deleted` int(11) DEFAULT '0',
   PRIMARY KEY (`PK`),
   KEY `index1` (`ServiceEntityPropertiesTypeID`,`ServiceEntityID`,`ParentServiceId`),
-  KEY `Index2` (`ammnt_FirId`),
-  KEY `Index3` (`deleted`),
   KEY `index4` (`ServiceEntityID`,`ParentServiceId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4884 DEFAULT CHARSET=utf8;
 
