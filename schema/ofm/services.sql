@@ -1,16 +1,4 @@
 --
--- Table structure for table `S1L`
---
-
-CREATE TABLE `S1L` (
-  `PK` int(11) NOT NULL AUTO_INCREMENT,
-  `RefID` int(11) NOT NULL,
-  `LanguageID` int(11) NOT NULL,
-  `Translation` varchar(100) NOT NULL,
-  PRIMARY KEY (`PK`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
 -- Table structure for table `S1T`
 --
 
@@ -133,17 +121,6 @@ CREATE TABLE `S2A7` (
   `deleted` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`PK`),
   KEY `index1` (`ServiceID`,`ServicePropertiesTypeID`,`ammnt_FirId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Table structure for table `S2L`
---
-
-CREATE TABLE `S2L` (
-  `RefID` int(11) NOT NULL,
-  `LanguageID` int(11) NOT NULL,
-  `Translation` varchar(200) NOT NULL,
-  PRIMARY KEY (`RefID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -307,18 +284,6 @@ CREATE TABLE `S3A7` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4884 DEFAULT CHARSET=utf8;
 
 --
--- Table structure for table `S3L`
---
-
-CREATE TABLE `S3L` (
-  `PK` int(11) NOT NULL AUTO_INCREMENT,
-  `RefID` int(11) NOT NULL,
-  `LanguageID` int(11) NOT NULL,
-  `Translation` varchar(200) NOT NULL,
-  PRIMARY KEY (`PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
---
 -- Table structure for table `S3T`
 --
 
@@ -356,18 +321,6 @@ CREATE TABLE `S4` (
   KEY `index5` (`OrganizationID`),
   KEY `index6` (`ServiceEntityID`,`ParentServiceID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Table structure for table `S5L`
---
-
-CREATE TABLE `S5L` (
-  `PK` int(11) NOT NULL AUTO_INCREMENT,
-  `RefID` int(11) NOT NULL,
-  `LanguageID` int(11) NOT NULL,
-  `Translation` varchar(100) NOT NULL,
-  PRIMARY KEY (`PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `S5T`
