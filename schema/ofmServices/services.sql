@@ -56,6 +56,27 @@ CREATE TABLE `S2T` (
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `S3A1`
+--
+
+CREATE TABLE `S3A1` (
+  `PK` int(11) NOT NULL AUTO_INCREMENT,
+  `ServiceEntityID` int(11) NOT NULL,
+  `ServiceEntityPropertiesTypeID` int(11) NOT NULL,
+  `ServiceEntityPropertiesTypeValue` double NOT NULL,
+  `IonChangeTimestamp` datetime NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `ParentServiceId` int(11) DEFAULT NULL,
+  `deleted` int(11) DEFAULT '0',
+  `ammnt_FirId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`PK`),
+  KEY `index1` (`ServiceEntityPropertiesTypeID`,`ServiceEntityID`,`ParentServiceId`),
+  KEY `index3` (`deleted`),
+  KEY `index4` (`ServiceEntityID`,`ParentServiceId`),
+  KEY `index5` (`ammnt_FirId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Table structure for table `S3A2`
 --
 
@@ -92,6 +113,27 @@ CREATE TABLE `S3A3` (
 ) ENGINE=MyISAM AUTO_INCREMENT=198991 DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `S3A4`
+--
+
+CREATE TABLE `S3A4` (
+  `PK` int(11) NOT NULL AUTO_INCREMENT,
+  `ServiceEntityID` int(11) NOT NULL,
+  `ServiceEntityPropertiesTypeID` int(11) NOT NULL,
+  `ServiceEntityPropertiesTypeValue` varchar(50) NOT NULL,
+  `IonChangeTimestamp` datetime NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `ParentServiceId` int(11) DEFAULT NULL,
+  `deleted` int(11) DEFAULT NULL,
+  `ammnt_FirId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`PK`),
+  KEY `index1` (`ServiceEntityPropertiesTypeID`,`ServiceEntityID`,`ParentServiceId`),
+  KEY `index3` (`deleted`),
+  KEY `index4` (`ServiceEntityID`,`ParentServiceId`),
+  KEY `index5` (`ammnt_FirId`)
+) ENGINE=InnoDB AUTO_INCREMENT=9851 DEFAULT CHARSET=utf8;
+
+--
 -- Table structure for table `S3A5`
 --
 
@@ -108,6 +150,28 @@ CREATE TABLE `S3A5` (
   PRIMARY KEY (`PK`),
   KEY `index1` (`ServiceEntityID`,`ServiceEntityPropertiesTypeID`,`ParentServiceId`,`UserID`,`ammnt_FirId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19500 DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `S3A6`
+--
+
+CREATE TABLE `S3A6` (
+  `PK` int(11) NOT NULL AUTO_INCREMENT,
+  `ServiceEntityID` int(11) NOT NULL,
+  `ServiceEntityPropertiesTypeID` int(11) NOT NULL,
+  `ServiceEntityPropertiesTypeValue` longblob NOT NULL,
+  `IonChangeTimestamp` datetime NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `ParentServiceId` int(11) DEFAULT NULL,
+  `deleted` int(11) DEFAULT NULL,
+  `ammnt_FirId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`PK`),
+  KEY `index3` (`deleted`),
+  KEY `index5` (`ammnt_FirId`),
+  KEY `index1` (`ServiceEntityID`),
+  KEY `index6` (`ParentServiceId`),
+  KEY `index4` (`ServiceEntityID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8288 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `S3A7`
