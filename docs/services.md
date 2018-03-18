@@ -31,7 +31,7 @@ ID|Description|Type
 Table: S3T
 
 ID|Description|Type|Multiple use
----|---|---
+---|---|---|---
 0|Flight Information Region|2|0
 1|Last Pending Submission|5|0
 2|Data Entity|6|1
