@@ -3,6 +3,9 @@
 This repository contains the mysql schema for the ofm database.
 The OFM database schema uses its own kind of no-sql style storage on top of mysql.
 
+## Data types used
+See [data types](docs/types.md)
+
 ## Services and service instances
 See [services](docs/services.md)
 
