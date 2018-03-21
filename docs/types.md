@@ -6,7 +6,7 @@ e.g. S3A2 table contains integer values
 
 ID|Name
 ---|---
-1|null value
+1|double
 2|integer
 3|text
 4|string
