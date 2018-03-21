@@ -1,1 +1,4 @@
-*.sql
+ofm.sql
+ofmServices.sql
+dev
+prod
