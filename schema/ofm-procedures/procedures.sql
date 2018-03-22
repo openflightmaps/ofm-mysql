@@ -1,7 +1,40 @@
---
--- Dumping routines for database 'ofm'
---
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+---
+--- Dropping existing routines for database 'ofm'
+---
+
+DROP FUNCTION IF EXISTS `checkUserExists`;
+DROP FUNCTION IF EXISTS `getUserId`;
+DROP PROCEDURE IF EXISTS `ammnt_addSpatialIndexEffectiveDate`;
+DROP PROCEDURE IF EXISTS `ammnt_addSpatialIndex`;
+DROP PROCEDURE IF EXISTS `ammnt_deleteSpatialIndex`;
+DROP PROCEDURE IF EXISTS `execQuery`;
+DROP PROCEDURE IF EXISTS `getSpatialIndexChangesOfDates`;
+DROP PROCEDURE IF EXISTS `getSpatialIndexTilesChangedOfDates`;
+DROP PROCEDURE IF EXISTS `DeleteInheritedService`;
+DROP PROCEDURE IF EXISTS `GetServiceEntityRevision`;
+DROP PROCEDURE IF EXISTS `GetServiceRevision`;
+DROP PROCEDURE IF EXISTS `InheritService`;
+DROP PROCEDURE IF EXISTS `QueryTable`;
+DROP PROCEDURE IF EXISTS `SetBinary`;
+DROP PROCEDURE IF EXISTS `SetLanguagePreference`;
+DROP PROCEDURE IF EXISTS `UpdateLangTransEntity`;
+DROP PROCEDURE IF EXISTS `UpdateOrganization`;
+DROP PROCEDURE IF EXISTS `UpdatePermission`;
+DROP PROCEDURE IF EXISTS `UpdateProperty`;
+DROP PROCEDURE IF EXISTS `UpdateService`;
+DROP PROCEDURE IF EXISTS `ammnt_AddActivityDataRecord`;
+DROP PROCEDURE IF EXISTS `ammnt_AddFirAmmnt`;
+DROP PROCEDURE IF EXISTS `ammnt_GetFirRevision`;
+DROP PROCEDURE IF EXISTS `ammnt_GetNumberOfTodaysCommits`;
+DROP PROCEDURE IF EXISTS `ammnt_GetUserActivity`;
+DROP PROCEDURE IF EXISTS `ammnt_IdentifyOadServiceEntity`;
+DROP PROCEDURE IF EXISTS `ammnt_queryTableFirSpatial`;
+DROP PROCEDURE IF EXISTS `ammnt_queryTableFir`;
+
+---
+--- Dumping routines for database 'ofm'
+---
+
 DELIMITER ;;
 CREATE DEFINER=`admin`@`%` FUNCTION `checkUserExists`(un VARCHAR(100), pw VARCHAR(100)) RETURNS tinyint(1)
 BEGIN
@@ -16,16 +49,12 @@ DECLARE count INT;
 RETURN count > 0;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`admin`@`%` FUNCTION `getUserId`(un VARCHAR(100), pw VARCHAR(100)) RETURNS int(11)
 BEGIN
    return (SELECT userid FROM U1T WHERE Password = pw AND Username = un);
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `ammnt_AddActivityDataRecord`(In pw VARCHAR(20), IN Un VARCHAR(50), IN record longtext, IN Login TIMESTAMP, IN Logout TIMESTAMP, IN activeMinutes INT)
 BEGIN
@@ -41,8 +70,6 @@ BEGIN
 	END IF;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `ammnt_AddFirAmmnt`(IN Tablename varchar(10), IN ServEntityID INT, IN Fir_Id INT, parentServId INT)
 BEGIN
@@ -56,8 +83,6 @@ BEGIN
  IF tablename = 'S3A7' then Update S3A7 Set ammnt_FirId = Fir_Id  where ServiceEntityId = ServEntityID and parentServiceId = ParentServId; end if;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`admin`@`%` PROCEDURE `ammnt_addSpatialIndex`(IN entityId INT, IN lon DOUBLE, IN lat DOUBLE, IN width DOUBLE, IN height DOUBLE)
 BEGIN
@@ -127,10 +152,8 @@ BEGIN
    END LOOP simple_loop;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
-CREATE DEFINER=`admin`@`%` PROCEDURE `ammnt_addSpatialIndexEffectiveDate`(IN un VARCHAR(100), in pw VARCHAR(100), IN fir INT, IN branchId INT, IN revisionId INT, IN type VARCHAR(100), IN name longtext, IN commitMsg VARCHAR(50000), IN entityId INT, IN lon DOUBLE, IN lat DOUBLE, IN width DOUBLE, IN height DOUBLE, IN effective dateTime, in validUntil dateTime)
+CREATE DEFINER=`admin`@`%` PROCEDURE `ammnt_addSpatialIndexEffectiveDate`(IN un VARCHAR(100), in pw VARCHAR(100), IN fir INT, IN branchId INT, IN revisionId INT, IN type VARCHAR(100), IN name longtext, IN commitMsg VARCHAR(20000), IN entityId INT, IN lon DOUBLE, IN lat DOUBLE, IN width DOUBLE, IN height DOUBLE, IN effective dateTime, in validUntil dateTime)
 BEGIN
    DECLARE tilesX INT;
    DECLARE tilesY INT;
@@ -199,8 +222,6 @@ if checkUserExists(un,pw) then
 END IF;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`admin`@`%` PROCEDURE `ammnt_deleteSpatialIndex`(IN entityId INT)
 BEGIN
@@ -209,8 +230,6 @@ BEGIN
  
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `ammnt_GetFirRevision`(In pw VARCHAR(20), IN Un VARCHAR(50),IN Fid INT)
 BEGIN
@@ -235,8 +254,6 @@ DECLARE loopCnt DOUBLE;
 
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `ammnt_GetNumberOfTodaysCommits`(In pw VARCHAR(20), IN Un VARCHAR(50),IN ServID INT)
 BEGIN
@@ -249,8 +266,6 @@ IF count > 0 THEN
   END IF;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `ammnt_GetUserActivity`(In Pw VARCHAR(50), IN Un VARCHAR(50), IN StartDate DATE, IN EndDate DATE)
 BEGIN	
@@ -258,16 +273,12 @@ BEGIN
 	Select * FROM AMMNT_COMMIT where UserID = (SELECT UserID FROM U1T WHERE Password = pw AND Username = Un) and (PropertyID=12 or PropertyID=17) AND TimeStamp >= StartDate and TimeStamp <= EndDate  order by TimeStamp desc limit 300; 
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `ammnt_IdentifyOadServiceEntity`(IN Designator VARCHAR(100), IN DataType VARCHAR(100), IN FirID INT)
 BEGIN
 	SELECT ServiceEntityID FROM S3A3 WHERE (ParentServiceID = 3 OR ParentServiceID = 4) AND (ServiceEntityPropertiesTypeID = 12 AND ServiceEntityPropertiesTypeValue = Designator AND ammnt_FIRID = FirID AND deleted is null);
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `ammnt_queryTableFir`(in tablename varchar(10), in serviceid int, in firid int, in propertyid int)
 BEGIN
@@ -283,8 +294,6 @@ IF TableName = 'S3A7' THEN SELECT * FROM S3A7 WHERE ServiceEntityPropertiesTypeI
 IF TableName = 'S4' THEN select * FROM S4 WHERE ammnt_FirId = Firid and ParentServiceId = serviceid and (deleted IS NULL or deleted = 0); END if;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `ammnt_queryTableFirSpatial`(in tablename varchar(10), in serviceid int, in firid int, in propertyid int,IN lon DOUBLE, IN lat DOUBLE, IN width DOUBLE, IN height DOUBLE)
 BEGIN
@@ -361,8 +370,6 @@ IF TableName = 'S4' THEN select * FROM S4 WHERE ammnt_FirId = Firid and ParentSe
 
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `DeleteInheritedService`(In Un VARCHAR(50), IN pw VARCHAR(50), IN InhServId INT)
 BEGIN
@@ -402,8 +409,6 @@ INSERT IGNORE `AMMNT_COMMIT` (`ServiceEntityID`,`ParentServiceID`,`UserID`, `Tim
   end if;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`admin`@`%` PROCEDURE `execQuery`(IN qry VARCHAR(20000))
 BEGIN
@@ -411,16 +416,12 @@ BEGIN
                 EXECUTE stmt1;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `GetServiceEntityRevision`(IN EntityID INT)
 BEGIN
 	SELECT Revision from S4 Where serviceEntityID = EntityID;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `GetServiceRevision`(In pw VARCHAR(20), IN Un VARCHAR(50),IN AnyID INT, IN Service1_ServiceEntity2 INT)
 BEGIN
@@ -439,8 +440,6 @@ BEGIN
 
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`admin`@`%` PROCEDURE `getSpatialIndexChangesOfDates`(IN un VARCHAR(100), in pw VARCHAR(100), IN lon DOUBLE, IN lat DOUBLE, IN width DOUBLE, IN height DOUBLE, IN effective datetime, in validUntil datetime)
 BEGIN
@@ -504,8 +503,6 @@ select distinct fir,serviceEntityId,name,type,commitMsg,userId,effectiveDate,val
 
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`admin`@`%` PROCEDURE `getSpatialIndexTilesChangedOfDates`(IN un VARCHAR(100), in pw VARCHAR(100), IN lon DOUBLE, IN lat DOUBLE, IN width DOUBLE, IN height DOUBLE, IN effective datetime, in validUntil datetime)
 BEGIN
@@ -569,8 +566,6 @@ BEGIN
 end if;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `InheritService`(In Un VARCHAR(50), IN pw VARCHAR(50), IN ServiceID INT, IN OrgID INT, IN IsPublic INT, IN InSearchTag VARCHAR(200))
 BEGIN
@@ -601,8 +596,6 @@ SET count = (SELECT COUNT(*) FROM U1T WHERE Password = pw AND Username = Un);
   end if;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `QueryTable`(In Un VARCHAR(50), IN Pw VARCHAR(50), IN TableName VARCHAR(10), IN AnyID INT(11), IN AnyID2 INT(11), IN AnyValue VARCHAR(500))
 BEGIN
@@ -703,7 +696,6 @@ BEGIN
     END IF;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `SetBinary`(In pw VARCHAR(20), IN Un VARCHAR(50), IN TableName VARCHAR(10), PropertyID INT(11), IN BL LONGBLOB, OrgID INT(11), IN oldRef VARCHAR(20), IN ServiceIsPublic INT)
 BEGIN
@@ -812,7 +804,6 @@ BEGIN
     END IF;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `SetLanguagePreference`(In pw VARCHAR(20), IN Un VARCHAR(50), IN LanguageID INT(11))
 BEGIN
@@ -837,8 +828,6 @@ BEGIN
     END IF;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `UpdateLangTransEntity`(In pw VARCHAR(20), IN Un VARCHAR(50), IN TableName VARCHAR(10), IN PropertyID INT(11), IN Value VARCHAR(1000), IN LanguageID INT(11))
 BEGIN
@@ -897,8 +886,6 @@ BEGIN
     END IF;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `UpdateOrganization`(In pw VARCHAR(20), IN Un VARCHAR(50), IN OrgName VARCHAR(100), Add1_Delete2 INT(11))
 BEGIN
@@ -931,7 +918,6 @@ BEGIN
     END IF;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `UpdatePermission`(In pw VARCHAR(20), IN Un VARCHAR(50), IN TableName VARCHAR(10), IN PermissionID INT(11), IN StartValidity VARCHAR(30), IN EndValidity VARCHAR(30), IN OrgID INT(11), IN ServiceID INT(11), IN RemovePermission BOOL)
 BEGIN
@@ -1178,7 +1164,6 @@ BEGIN
     END IF;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `UpdateService`(In Un VARCHAR(50), IN pw VARCHAR(50), IN ServiceID INT, IN ServiceEntityId_ INT, IN OrgID INT, IN IsPublic INT, IN InSearchTag VARCHAR(200))
 BEGIN
@@ -1200,4 +1185,3 @@ SET count = (SELECT COUNT(*) FROM U1T WHERE Password = pw AND Username = Un);
   end if;
 END ;;
 DELIMITER ;
-ALTER DATABASE `ofm` CHARACTER SET utf8 COLLATE utf8_general_ci ;

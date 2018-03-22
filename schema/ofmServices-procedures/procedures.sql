@@ -1,4 +1,38 @@
 --
+-- Dropping existing routines for database 'ofmServices'
+--
+
+DROP FUNCTION IF EXISTS `checkUserExists`;
+DROP FUNCTION IF EXISTS `credit_getNewpCode`;
+DROP FUNCTION IF EXISTS `getChecksum`;
+DROP PROCEDURE IF EXISTS `DeleteInheritedService`;
+DROP PROCEDURE IF EXISTS `GetServiceEnitityPropertiesByParentalService`;
+DROP PROCEDURE IF EXISTS `GetServiceEntityRevision`;
+DROP PROCEDURE IF EXISTS `GetServiceRevision`;
+DROP PROCEDURE IF EXISTS `InheritService`;
+DROP PROCEDURE IF EXISTS `QueryTable`;
+DROP PROCEDURE IF EXISTS `SetBinary`;
+DROP PROCEDURE IF EXISTS `SetLanguagePreference`;
+DROP PROCEDURE IF EXISTS `UpdateLangTransEntity`;
+DROP PROCEDURE IF EXISTS `UpdateOrganization`;
+DROP PROCEDURE IF EXISTS `UpdatePermission`;
+DROP PROCEDURE IF EXISTS `UpdateProperty`;
+DROP PROCEDURE IF EXISTS `UpdateService`;
+DROP PROCEDURE IF EXISTS `ammnt_GetFirRevision`;
+DROP PROCEDURE IF EXISTS `ammnt_GetNumberOfTodaysCommits`;
+DROP PROCEDURE IF EXISTS `ammnt_getOfmLatestCommits`;
+DROP PROCEDURE IF EXISTS `credit_createCredit`;
+DROP PROCEDURE IF EXISTS `credit_getBalance`;
+DROP PROCEDURE IF EXISTS `credit_getChecksum`;
+DROP PROCEDURE IF EXISTS `credit_getLastTransactionDate`;
+DROP PROCEDURE IF EXISTS `credit_getLastTransaction`;
+DROP PROCEDURE IF EXISTS `credit_getTransactions`;
+DROP PROCEDURE IF EXISTS `credit_transmitToNewAccount`;
+DROP PROCEDURE IF EXISTS `credit_transmit`;
+DROP PROCEDURE IF EXISTS `credit_validateEmail`;
+DROP PROCEDURE IF EXISTS `getOfmLatestCommits`;
+
+--
 -- Dumping routines for database 'ofmServices'
 --
 DELIMITER ;;
