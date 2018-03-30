@@ -30,8 +30,8 @@ ID|Description|Type
 ## Service instance properties
 Table: S3T
 
-ID|Description|Type|Multiple use
----|---|---|---
+ID|Description|Type|Multiple use|Description
+---|---|---|---|---
 0|Flight Information Region|2|0
 1|Last Pending Submission|5|0
 2|Data Entity|6|1
@@ -77,6 +77,7 @@ ID|Description|Type|Multiple use
 42|lookup values|3|0
 43|image|6|1|
 45|epsgRasterTilePath|3|0|
+46|Bounding Box|4|0|format: `left,bottom,right,top` e.g. `5.123,45.78,10.876,47.650`
 
 # Service instances
 Table: S4
