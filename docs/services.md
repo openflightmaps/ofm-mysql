@@ -14,7 +14,7 @@ ID|Name|Description|Status
 4|OAD Static Data|Static OFM Data such as borders|In Use
 5|Documents Libary|Stored AIP Libraries|In Use
 6|AIS map design|0|Stored Design Sets of AIS_contributor|In Use
-7|CFE definition file|Common Format Export Definitions (e.g. open air file export scheme| ...)|In Use
+7|CFE definition file|Common Format Export Definitions (e.g. open air file export scheme ...)|In Use
 8|Map Regions|Defines Mapsectors to be related with Organizations|In Use
 9|OAD AIRAC Buffer|Buffer for Airac changes| to be committed and checked before each airac date|Deprecated
 
