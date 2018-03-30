@@ -7,4 +7,4 @@ CREATE TABLE `idsToMigrate` (
   `accountDesignator` varchar(1000) DEFAULT NULL,
   `email` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
