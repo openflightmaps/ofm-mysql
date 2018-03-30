@@ -19,19 +19,6 @@ CREATE TABLE `P1A` (
 ) ENGINE=InnoDB AUTO_INCREMENT=977 DEFAULT CHARSET=utf8;
 
 --
--- Table structure for table `P1L`
---
-
-CREATE TABLE `P1L` (
-  `PK` int(11) NOT NULL AUTO_INCREMENT,
-  `RefID` int(11) NOT NULL,
-  `LanguageID` int(11) NOT NULL,
-  `Translation` varchar(200) NOT NULL,
-  PRIMARY KEY (`PK`),
-  KEY `index1` (`RefID`,`LanguageID`,`Translation`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-
---
 -- Table structure for table `P1T`
 --
 
