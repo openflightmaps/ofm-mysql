@@ -77,7 +77,7 @@ CREATE TABLE `AMMNT_S4_SPATIALINDEX_CHANGES` (
   `userId` int(11) NOT NULL DEFAULT '-1',
   `type` varchar(45) NOT NULL DEFAULT 'NOT SET',
   `name` longtext NOT NULL,
-  `commitMsg` varchar(50000) NOT NULL DEFAULT 'NOT SET',
+  `commitMsg` longtext NOT NULL,
   PRIMARY KEY (`PK`),
   KEY `tileId` (`tileId`,`serviceEntityId`),
   KEY `date1` (`effectiveDate`),
