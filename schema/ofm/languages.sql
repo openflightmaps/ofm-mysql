@@ -59,19 +59,6 @@ CREATE TABLE `G1T` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
--- Table structure for table `G2T`
---
-
-CREATE TABLE `G2T` (
-  `CountryID` int(11) NOT NULL AUTO_INCREMENT,
-  `CountryDescription` varchar(200) NOT NULL,
-  `CountryDescriptionIcon` int(11) DEFAULT NULL,
-  `TextID` int(11) NOT NULL,
-  PRIMARY KEY (`CountryID`),
-  KEY `index1` (`CountryID`,`CountryDescription`,`CountryDescriptionIcon`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
---
 -- Table structure for table `G4A1`
 --
 
