@@ -1,6 +1,40 @@
+
+DROP FUNCTION IF EXISTS `checkUserExists`;
+DROP FUNCTION IF EXISTS `getUserId`;
+DROP PROCEDURE IF EXISTS `ammnt_addSpatialIndexEffectiveDate`;
+DROP PROCEDURE IF EXISTS `ammnt_addSpatialIndex`;
+DROP PROCEDURE IF EXISTS `ammnt_deleteSpatialIndex`;
+DROP PROCEDURE IF EXISTS `execQuery`;
+DROP PROCEDURE IF EXISTS `getSpatialIndexChangesOfDates`;
+DROP PROCEDURE IF EXISTS `getSpatialIndexTilesChangedOfDates`;
+DROP PROCEDURE IF EXISTS `DeleteInheritedService`;
+DROP PROCEDURE IF EXISTS `GetServiceEntityRevision`;
+DROP PROCEDURE IF EXISTS `GetServiceRevision`;
+DROP PROCEDURE IF EXISTS `InheritService`;
+DROP PROCEDURE IF EXISTS `QueryTable`;
+DROP PROCEDURE IF EXISTS `SetBinary`;
+DROP PROCEDURE IF EXISTS `SetLanguagePreference`;
+DROP PROCEDURE IF EXISTS `UpdateLangTransEntity`;
+DROP PROCEDURE IF EXISTS `UpdateOrganization`;
+DROP PROCEDURE IF EXISTS `UpdatePermission`;
+DROP PROCEDURE IF EXISTS `UpdateProperty`;
+DROP PROCEDURE IF EXISTS `UpdateService`;
+DROP PROCEDURE IF EXISTS `ammnt_AddActivityDataRecord`;
+DROP PROCEDURE IF EXISTS `ammnt_AddFirAmmnt`;
+DROP PROCEDURE IF EXISTS `ammnt_GetFirRevision`;
+DROP PROCEDURE IF EXISTS `ammnt_GetNumberOfTodaysCommits`;
+DROP PROCEDURE IF EXISTS `ammnt_GetUserActivity`;
+DROP PROCEDURE IF EXISTS `ammnt_IdentifyOadServiceEntity`;
+DROP PROCEDURE IF EXISTS `ammnt_queryTableFirSpatial`;
+DROP PROCEDURE IF EXISTS `ammnt_queryTableFir`;
+
+--
+-- Dumping routines for database 'ofm'
+--
+
 -- MySQL dump 10.13  Distrib 5.7.26, for Linux (x86_64)
 --
--- Host: data.openflightmaps.org    Database: ofm
+-- Host: data.dev.openflightmaps.org    Database: ofm
 -- ------------------------------------------------------
 -- Server version	5.7.12
 
@@ -437,39 +471,38 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`flightplan`@`%` PROCEDURE `ammnt_queryTableFirSpatial`(in tablename varchar(10), in serviceid int, in firid int, in propertyid int,IN lon DOUBLE, IN lat DOUBLE, IN width DOUBLE, IN height DOUBLE)
 BEGIN
 
+
    
-   DECLARE tilesX INT;
-   DECLARE tilesY INT;
+   DECLARE tilesX BIGINT;
+   DECLARE tilesY BIGINT;
    DECLARE startIdx BIGINT;
    DECLARE endIdx BIGINT;
-   DECLARE diffX DOUBLE;
-   DECLARE diffY DOUBLE;
+   DECLARE diffX BIGINT;
+   DECLARE diffY BIGINT;
    DECLARE id BIGINT;
-   DECLARE firstVal BIGINT;
    DECLARE endVal BIGINT;
    DECLARE loopVal BIGINT;
- 
+    DECLARE firstVal BIGINT;
 
    DROP TEMPORARY TABLE IF EXISTS spatialQuery;     
    CREATE TEMPORARY TABLE spatialQuery (
-   serviceEntityId BIGINT
+   tileId BIGINT
    ) ENGINE=memory;
 
- 
    SET tilesX = 360 * 6;
    SET tilesY = 180 * 6;
 
-   SET startIdx = FLOOR(tilesX / 360 * lon) * tilesY;
-   SET endIdx = FLOOR(tilesX / 360 * (lon + width)) * tilesY;
+   SET startIdx = (tilesX / 360 * lon * tilesY);
+   SET endIdx = (tilesX / 360 * (lon + width)) * tilesY;
    SET diffX  = width * tilesX / 360;
    SET diffY  = height * tilesY / 180;
 	
@@ -477,44 +510,46 @@ BEGIN
 
    simple_loop: LOOP         
         
-   
       SET startIdx = CEILING(tilesX / 360 * (lon + id * 360 / tilesX)) * tilesY;
 	  SET firstVal = startIdx + (lat + 90) / 180 * tilesY;
 	  SET endVal   = firstVal + diffy;
 
-      SET loopVal = firstVal;
+       SET loopVal = firstVal;
 
-      insertLoop: LOOP
-		INSERT IGNORE spatialQuery (serviceEntityId) VALUES (loopVal);
+			  insertLoop: LOOP
+				INSERT IGNORE spatialQuery (tileId) VALUES (loopVal);
 
-         SET loopVal=loopVal+1;
-         IF loopVal>endVal THEN
-            LEAVE insertLoop;
-         END IF;
-	  END LOOP insertLoop;
+				 SET loopVal=loopVal+1;
+				 IF loopVal>endVal THEN
+					LEAVE insertLoop;
+				 END IF;
+			  END LOOP insertLoop;
  
 
          SET id=id+1;
-         IF id>diffX THEN
+         IF id>=diffX THEN
             LEAVE simple_loop;
          END IF;
    END LOOP simple_loop;
 
 
 set loopVal = (0 + 90) / 180 * tilesY;
-INSERT IGNORE spatialQuery (serviceEntityId) VALUES (loopVal);
+INSERT IGNORE spatialQuery (tileid) VALUES (loopVal);
 
-IF TableName = 'S3A1' THEN SELECT * FROM S3A1 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT serviceEntityId FROM spatialQuery)); END IF;
-IF TableName = 'S3A2' THEN SELECT * FROM S3A2 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT serviceEntityId FROM spatialQuery)); END IF;
-IF TableName = 'S3A3' THEN SELECT * FROM S3A3 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT serviceEntityId FROM spatialQuery)); END IF;
-IF TableName = 'S3A4' THEN SELECT * FROM S3A4 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT serviceEntityId FROM spatialQuery)); END IF;
-IF TableName = 'S3A5' THEN SELECT * FROM S3A5 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT serviceEntityId FROM spatialQuery));  END IF;
-IF TableName = 'S3A6' THEN SELECT * FROM S3A6 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT serviceEntityId FROM spatialQuery)); END IF;
-IF TableName = 'S3A7' THEN SELECT * FROM S3A7 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT serviceEntityId FROM spatialQuery)); END IF;
+ 
+
+IF TableName = 'S3A1' THEN SELECT * FROM S3A1 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT tileid FROM spatialQuery)); END IF;
+IF TableName = 'S3A2' THEN SELECT * FROM S3A2 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT tileid FROM spatialQuery)); END IF;
+IF TableName = 'S3A3' THEN SELECT * FROM S3A3 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT tileid FROM spatialQuery)); END IF;
+IF TableName = 'S3A4' THEN SELECT * FROM S3A4 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT tileid FROM spatialQuery)); END IF;
+IF TableName = 'S3A5' THEN SELECT * FROM S3A5 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT tileid FROM spatialQuery));  END IF;
+IF TableName = 'S3A6' THEN SELECT * FROM S3A6 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT tileid FROM spatialQuery)); END IF;
+IF TableName = 'S3A7' THEN SELECT * FROM S3A7 WHERE ServiceEntityPropertiesTypeID = propertyid AND parentserviceid = serviceid and firid = ammnt_firid and (deleted IS NULL or deleted = 0) and serviceEntityId IN (select DISTINCT serviceEntityId FROM AMMNT_S4_SPATIALINDEX where tileId in (SELECT tileid FROM spatialQuery)); END IF;
 
 
 IF TableName = 'S4' THEN select * FROM S4 WHERE ammnt_FirId = Firid and ParentServiceId = serviceid and (deleted IS NULL or deleted = 0); END if;
 
+ -- select * from spatialQuery; -- debug
 
 END ;;
 DELIMITER ;
@@ -588,6 +623,41 @@ CREATE DEFINER=`admin`@`%` PROCEDURE `execQuery`(IN qry VARCHAR(20000))
 BEGIN
                    PREPARE stmt1 FROM @qry; 
                 EXECUTE stmt1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `getBinary` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`admin`@`%` PROCEDURE `getBinary`(In un VARCHAR(20), IN pw VARCHAR(50), IN TableName VARCHAR(10),IN PK_ LONG, in serviceEntityId_ LONG)
+BEGIN
+
+   DECLARE count INT(11);
+   SET count = (SELECT COUNT(*) FROM U1T WHERE Password = pw AND Username = un);
+        
+	IF count > 0 THEN     
+
+		if Tablename = "S3A6" then
+			SELECT ServiceEntityPropertiesTypeValue FROM ofm.S3A6 where PK=PK_ and serviceEntityId=serviceEntityId_;
+		end if;
+		if Tablename = "U2A6" then
+			SELECT ServiceEntityPropertiesTypeValue FROM ofm.U2A6 where PK=PK_ and serviceEntityId=serviceEntityId_;
+		end if;
+ 		if Tablename = "O1A6" then
+			SELECT ServiceEntityPropertiesTypeValue FROM ofm.O1A6 where PK=PK_ and serviceEntityId=serviceEntityId_;
+		end if;
+ 
+	END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1276,9 +1346,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1311,6 +1381,7 @@ BEGIN
         
         SET UID = (SELECT UserID FROM U1T WHERE Password = pw AND Username = Un);
      
+		if ServiceIsPublic = 1 then set UID=-1; END IF;
 	    
 		
         IF Tablename = 'U2A1' OR Tablename = 'U2A2' OR Tablename = 'U2A3' OR Tablename = 'U2A4' OR Tablename = 'U2A5' or Tablename = 'U2A6' or Tablename = 'U2A7' THEN        
@@ -1542,4 +1613,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-09 14:23:36
+-- Dump completed on 2019-12-09 14:25:26
