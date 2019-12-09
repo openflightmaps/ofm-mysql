@@ -17,7 +17,7 @@ CREATE TABLE `AMMNT_COMMIT` (
   KEY `property` (`UserID`,`PropertyID`),
   KEY `date` (`UserID`,`TimeStamp`),
   KEY `date2` (`ParentServiceId`,`TimeStamp`)
-) ENGINE=InnoDB AUTO_INCREMENT=493399 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `AMMNT_FIR`
@@ -29,7 +29,7 @@ CREATE TABLE `AMMNT_FIR` (
   `IcaoCode` varchar(4) NOT NULL,
   PRIMARY KEY (`PK`),
   KEY `index` (`Name`,`IcaoCode`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `AMMNT_S4_SPATIALINDEX`
@@ -44,7 +44,7 @@ CREATE TABLE `AMMNT_S4_SPATIALINDEX` (
   KEY `ServiceEntityId` (`TileId`,`ServiceEntityId`),
   KEY `2` (`ServiceEntityId`,`TileId`),
   KEY `4` (`lastChange`,`TileId`)
-) ENGINE=InnoDB AUTO_INCREMENT=3209163 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `AMMNT_S4_SPATIALINDEX_CHANGES`
@@ -67,4 +67,4 @@ CREATE TABLE `AMMNT_S4_SPATIALINDEX_CHANGES` (
   KEY `tileId` (`tileId`,`serviceEntityId`),
   KEY `date1` (`effectiveDate`),
   KEY `date2` (`validUntilDate`)
-) ENGINE=InnoDB AUTO_INCREMENT=2099046 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

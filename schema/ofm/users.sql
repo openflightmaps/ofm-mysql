@@ -8,7 +8,7 @@ CREATE TABLE `U13` (
   `LanguageID` int(11) NOT NULL,
   `Translation` varchar(200) NOT NULL,
   PRIMARY KEY (`PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U14`
@@ -20,7 +20,7 @@ CREATE TABLE `U14` (
   `LanguageID` int(11) NOT NULL,
   `Translation` varchar(100) NOT NULL,
   PRIMARY KEY (`PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U15`
@@ -32,7 +32,7 @@ CREATE TABLE `U15` (
   `LanguageID` int(11) NOT NULL,
   `Translation` varchar(200) NOT NULL,
   PRIMARY KEY (`PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U1T`
@@ -48,7 +48,7 @@ CREATE TABLE `U1T` (
   `openIdSubject` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`UserID`),
   KEY `index1` (`Username`,`UserID`,`Password`,`MainlanguagePref`)
-) ENGINE=MyISAM AUTO_INCREMENT=223 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U1_O1A`
@@ -60,7 +60,7 @@ CREATE TABLE `U1_O1A` (
   `OrganizationID` int(11) NOT NULL,
   PRIMARY KEY (`Pk`),
   KEY `index` (`UserId`,`OrganizationID`)
-) ENGINE=InnoDB AUTO_INCREMENT=214 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U2A1`
@@ -92,7 +92,7 @@ CREATE TABLE `U2A2` (
   PRIMARY KEY (`Pk`),
   KEY `index1` (`UserID`,`UserPropertiesTypeID`),
   KEY `index2` (`UserID`,`Hidden`)
-) ENGINE=InnoDB AUTO_INCREMENT=3948 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U2A3`
@@ -108,7 +108,7 @@ CREATE TABLE `U2A3` (
   PRIMARY KEY (`Pk`),
   KEY `index1` (`UserID`,`UserPropertiesTypeID`),
   KEY `index2` (`UserID`,`Hidden`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U2A4`
@@ -124,7 +124,7 @@ CREATE TABLE `U2A4` (
   PRIMARY KEY (`Pk`),
   KEY `index1` (`UserID`,`UserPropertiesTypeID`),
   KEY `index2` (`Hidden`)
-) ENGINE=InnoDB AUTO_INCREMENT=840 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U2A5`
@@ -140,7 +140,7 @@ CREATE TABLE `U2A5` (
   PRIMARY KEY (`Pk`),
   KEY `index1` (`UserID`,`UserPropertiesTypeID`),
   KEY `index2` (`Hidden`)
-) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U2A6`
@@ -157,7 +157,7 @@ CREATE TABLE `U2A6` (
   PRIMARY KEY (`Pk`),
   KEY `index1` (`UserID`,`UserPropertiesTypeID`),
   KEY `index2` (`Hidden`)
-) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U2A7`
@@ -173,7 +173,7 @@ CREATE TABLE `U2A7` (
   PRIMARY KEY (`Pk`),
   KEY `index1` (`UserID`,`UserPropertiesTypeID`),
   KEY `index2` (`Hidden`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U2L`
@@ -187,7 +187,7 @@ CREATE TABLE `U2L` (
   PRIMARY KEY (`PK`),
   KEY `index1` (`RefID`,`LanguageID`),
   KEY `index2` (`RefID`,`Translation`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U2T`
@@ -205,7 +205,7 @@ CREATE TABLE `U2T` (
   KEY `index3` (`UserPropertiesTypeFormat`),
   KEY `index4` (`multipleUse`),
   KEY `index5` (`protected`)
-) ENGINE=InnoDB AUTO_INCREMENT=2001 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `U3T`
@@ -217,4 +217,4 @@ CREATE TABLE `U3T` (
   PRIMARY KEY (`UserCategoryID`),
   KEY `index1` (`UserCategoryID`),
   KEY `index2` (`UserCategoryName`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
